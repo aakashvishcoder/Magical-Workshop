@@ -23,7 +23,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     },[season]);
 
     return (
-        <ThemeContextType.Provider value={{ season, toggleSeason }}>
+        <ThemeContext.Provider value={{ season, toggleSeason }}>
             {children}
         </ThemeContext.Provider>
     );
