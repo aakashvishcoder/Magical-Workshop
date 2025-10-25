@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FallingLeaves from './FallingLeaves';
 import GadgetModel from './GadgetModel';
 import { useTheme } from '../utils/themes';
-import Compass from './gadgets/Compass';
+import Compass from './gadgets/CompassGame';
 
 const gadgets = [
     { id: 'compass', name: 'Magical Compass', icon: '🧭' },
