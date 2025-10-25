@@ -1,32 +1,30 @@
-// src/components/gadgets/Compass.tsx
 import React, { useState, useEffect } from 'react';
 
 const Compass: React.FC = () => {
-  const [angle, setAngle] = useState(0);
+  const [angle,setAngle] = useState(0);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
-      const radians = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+      const radians = Math.atan(e.clientY - centerY, e.clientX - centerX);
       setAngle(radians * (180 / Math.PI) + 90);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  },[]);
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h2>🧭 Magical Compass</h2>
-      <p>Points to your cursor... or maybe to Orpheus?</p>
-      <div style={{ fontSize: '4rem', margin: '20px' }}>
+    <div className="text-center p-5 max-w-md mx-auto">
+      <h2 className="text-2xl font-caveat font-bold mb-2">🧭 Magical Compass</h2>
+      <p className="text-fall-text mb-6 opacity-90">
+        Points to your cursor.... or maybe to Orpheus?
+      </p>
+      <div className="text-6xl my-5">
         <span
-          style={{
-            display: 'inline-block',
-            transform: `rotate(${angle}deg)`,
-            transition: 'transform 0.2s ease-out',
-          }}
+          className="incline-block transition-transform duration-200 ease-out"
+          style={{ transform: `rotate(${angle}deg)`}}
         >
           🧭
         </span>
@@ -35,5 +33,4 @@ const Compass: React.FC = () => {
   );
 };
 
-// ✅ This is required for `import Compass from './Compass'` to work
 export default Compass;
