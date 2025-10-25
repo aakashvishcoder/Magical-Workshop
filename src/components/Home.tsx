@@ -5,11 +5,11 @@ import { useTheme } from '../utils/themes';
 import Compass from './gadgets/CompassGame';
 
 const gadgets = [
-    { id: 'compass', name: 'Magical Compass', icon: '🧭' },
-    { id: 'spell', name: "Spell Generator", icon: '🪄' },
+    { id: 'compass', name: "Magical Compass", icon: '🧭' },
+    { id: 'spell', name: 'Spell Generator', icon: '🪄' },
     { id: 'stew', name: 'Pumpkin Stew', icon: '🍲' },
     { id: 'map', name: 'Orpheus Map', icon: '🗺️' },
-    { id: 'journal', name: 'Heidi’s Journal', icon: '📓' },
+    { id: 'journal', name: 'Journal', icon: '📓' },
     { id: 'crystal', name: 'Crystal Ball', icon: '🔮' },
 ];
 
@@ -18,55 +18,58 @@ const Home: React.FC = () => {
     const [openGadget, setOpenGadget] = useState<string | null>(null);
 
     return (
-        <div className="relative min-h-screen bg-inherit overflow-hidden">
+        <div className="min-h-screen bg-fall-bg relative overflow-hidden">
             <FallingLeaves />
 
-            <div className="relative z-10">
-                <header className="p-6 pb-2 text-center">
-                    <h1 className="text-3xl md:text-4xl font-caveat font-bold text-fall-text">
-                        🍂 Heidi’s Magical Workshop
+            <div className="container mx-auto px-4 py-8 relative z-10">
+                <header className="text-center mb-12 max-w-2xl mx-auto">
+                    <div className="inline-block mb-4 p-3 bg-amber-50 rounded-full">
+                        <span className="text-3xl">🍂</span>
+                    </div>
+                    <h1 className="text-4xl md:text-5xl font-caveat font-bold text-fall-text mb-4">
+                        Magical Workshop
                     </h1>
-                    <p className="text-fall-text/80 mt-1 text-sm md:text-base">
-                        Welcome back, adventurer!
+                    <p className="text-fall-text/80 text-lg mb-6">
+                        A whimsical lab of enchanted gadgets and autumnal wonders.
                     </p>
                     <button
                         onClick={toggleSeason}
-                        className="mt-3 px-4 py-1.5 bg-amber-100 hover:bg-amber-200 rounded-full text-fall-text text-sm transition"
+                        className="px-6 py-2.5 bg-white/80 hover:bg-white text-fall-text rounded-full font-medium shadow-sm transition-all duration-300 hover:shadow-md backdrop-blur-sm border border-amber-100"
                     >
-                        Switch to {season === 'fall' ? 'Summer' : "Fall"}
+                        Switch to {season === 'fall' ? 'Summer' : 'Fall'} Mode
                     </button>
                 </header>
 
-                <main className="flex-1 px-4 pb-20">
-                    <div className="max-w-4xl mx-auto">
-                        <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-4">
-                            {gadgets.map((gadget) => (
-                                <button
-                                    key={gadget.id}
-                                    onClick={() => setOpenGadget(gadget.id)}
-                                    className="flex flex-col items-center p-3 bg-white/70 hover:bg-white rounded-xl shadow-sm transition transform hover:scale-105 backdrop-blur-sm"
-                                    aria-label={gadget.name}
-                                >
-                                    <span className="text-2xl mb-1">{gadget.icon}</span>
-                                    <span className="text-xs text-fall-text mt-1 text-center leading-tight">
-                                        {gadget.name}
-                                    </span>
-                                </button>
-                            ))}
-                        </div>
+                <main className="mb-16">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                        {gadgets.map((gadget) => (
+                            <button
+                                key={gadget.id}
+                                onClick={() => setOpenGadget(gadget.id)}
+                                className="group flex flex-col items-center p-5 bg-white/60 hover:bg-white/80 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-lg backdrop-blur-sm border border-white/30"
+                                aria-label={gadget.name}
+                            >
+                                <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                                    {gadget.icon}
+                                </div>
+                                <span className="text-fall-text font-medium text-sm text-center leading-tight">
+                                    {gadget.name}
+                                </span>
+                            </button>
+                        ))}
                     </div>
                 </main>
 
-                <footer className="absolute bottom-0 w-full p-4 text-center text-fall-text/60 text-xs">
-                    Made with 🍁 & magic • Find Orpheus soon...
+                <footer className="text-center text-fall-text/60 text-sm pb-8 border-t border-fall-text/10 pt-8">
+                    <p>Made with 🍁 & magic in McKinney, TX • Find Orpheus soon...</p>
                 </footer>
             </div>
 
             {openGadget && (
-                    <GadgetModel onClose={() => setOpenGadget(null)}>
-                        {openGadget === 'compass' && <Compass />}
-                    </GadgetModel>
-                )}
+                <GadgetModel onClose={() => setOpenGadget(null)}>
+                    {openGadget === 'compass' && <Compass />}
+                </GadgetModel>
+            )}
         </div>
     );
 };
