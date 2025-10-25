@@ -3,13 +3,14 @@ import GadgetHotspot from './GadgetHotspot';
 import GadgetModel from './GadgetModel';
 import { useGameState } from '../hooks/useGameState';
 import CompassGame from './gadgets/CompassGame';
+import WorkshopBG from '../assets/workshop-bg.svg'
 
 const WorkshopBackground = () => {
-    <div className="absolute inset-0 bg-fall-bg">
-        <div className="absolute top-1/4 left-1/4 w-1/2 h-24 bg-amber-200 rounded opacity-30"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-16 h-16 rounded-full bg-gray-800 opacity-20"></div>
-        <div className="absolute top-10 right-10 w-24 h-32 bg-yellow-100 opacity-20 rounded-sm"></div>
-    </div>
+    return (
+        <div className="absolute inset-0">
+            <img src={WorkshopBG} alt="Workshop" className="w-full h-full object-cover" />
+        </div>
+    );
 };
 
 const WorkshopHub: React.FC = () => {
