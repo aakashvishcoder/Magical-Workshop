@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const LEAF_TYPES = ['🍁', '🍂', '🍃'];
 
 const FallingLeaves: React.FC = () => {
-    const [leaves, setLeaves] = useState<Array<{ id: number; x: number; duration: number; type: string}>>([]);
+    const [leaves, setLeaves] = useState<Array<{ id: number; x: number; duration: number; type: string; }>>([]);
 
     useEffect(() => {
         const generateLeaf = () => {
@@ -31,14 +31,11 @@ const FallingLeaves: React.FC = () => {
     }, []);
 
     return (
-        <div
-            className="fixed inset-0 pointer-events-none z-0"
-            style={{ overflow: 'hidden' }}
-        >
+        <>
             {leaves.map((leaf) => (
                 <div
                     key={leaf.id}
-                    className="absolute top-0 text-2xl opacity-[var(--leaf-opacity)]"
+                    className="fixed top-0 text-2xl opacity-[var(--leaf-opacity)] pointer-events-none z-0"
                     style={{
                         left: `${leaf.x}%`,
                         transform: 'translateY(-50px)',
@@ -52,11 +49,11 @@ const FallingLeaves: React.FC = () => {
             <style>{`
                 @keyframes fallLeaf {
                     to {
-                        transform: translateY(100vh) rotate(360deg);
+                        transform: translateY(110vh) rotate(360deg);
                     }
                 }
             `}</style>
-        </div>
+        </>
     );
 };
 
