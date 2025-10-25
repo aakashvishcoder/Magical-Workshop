@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const LEAF_TYPES = ['🍁', '🍂', '🍃'];
 
 const FallingLeaves: React.FC = () => {
-    const [leaves, setLeaves] = useState<Array<{ id: number; x: number; duration: number; type: string; }>>([]);
+    const [leaves, setLeaves] = useState<Array<{ id: number; x: number; duration: number, type: string }>>([]);
 
     useEffect(() => {
         const generateLeaf = () => {
@@ -19,7 +20,7 @@ const FallingLeaves: React.FC = () => {
                 type: LEAF_TYPES[Math.floor(Math.random() * LEAF_TYPES.length)],
             };
 
-            setLeaves((prev) => [...prev.slice(-25), newLeaf]);
+            setLeaves((prev) => [...prev.slice(-20), newLeaf]);
 
             setTimeout(() => {
                 setLeaves((prev) => prev.filter((leaf) => leaf.id !== newLeaf.id));
@@ -30,7 +31,7 @@ const FallingLeaves: React.FC = () => {
         return () => clearInterval(interval);
     }, []);
 
-    return (
+    return createPortal(
         <>
             {leaves.map((leaf) => (
                 <div
@@ -53,7 +54,8 @@ const FallingLeaves: React.FC = () => {
                     }
                 }
             `}</style>
-        </>
+        </>,
+        document.getElementById('leaves-layer')!
     );
 };
 
