@@ -3,64 +3,56 @@ import React, { useEffect, useState } from 'react';
 const LEAF_TYPES = ['🍁', '🍂', '🍃'];
 
 const FallingLeaves: React.FC = () => {
-    const [leaves, setLeaves] = useState<Array<{ id: number; duration: number; type: string; }>>([]);
+    const [leaves, setLeaves] = useState<Array<{ id: number; x: number; duration: number; type: string}>>([]);
 
     useEffect(() => {
         const generateLeaf = () => {
-            const opacity = getComputedStyle(document.documentElement).getPropertyValue('--leaf-opacity').trim();
+            const opacity = getComputedStyle(document.documentElement)
+                .getPropertyValue('--leaf-opacity')
+                .trim();
             if (opacity === '0') return;
 
             const newLeaf = {
                 id: Date.now(),
-                left: Math.random()* 100, 
-                duration: 3 + Math.random() * 4,
+                x: Math.random() * 100,
+                duration: 4 + Math.random() * 6,
                 type: LEAF_TYPES[Math.floor(Math.random() * LEAF_TYPES.length)],
             };
 
-            setLeaves((prev) => [...prev.slice(-20), newLeaf]);
+            setLeaves((prev) => [...prev.slice(-25), newLeaf]);
 
             setTimeout(() => {
                 setLeaves((prev) => prev.filter((leaf) => leaf.id !== newLeaf.id));
             }, newLeaf.duration * 1000);
         };
 
-        const interval = setInterval(generateLeaf, 400);
+        const interval = setInterval(generateLeaf, 600);
         return () => clearInterval(interval);
-    },[]);
+    }, []);
 
     return (
         <div
-            style={{
-                pointerEvents: 'none',
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                zIndex: 0,
-            }}
+            className="fixed inset-0 pointer-events-none z-0"
+            style={{ overflow: 'hidden' }}
         >
             {leaves.map((leaf) => (
                 <div
                     key={leaf.id}
+                    className="absolute top-0 text-2xl opacity-[var(--leaf-opacity)]"
                     style={{
-                        position: 'absolute',
-                        leaf: `${leaf.left}%`,
-                        top:  '-50px',
-                        fontSize: '24px',
-                        opacity: 'var(--leaf-opacity)',
-                        animation: `fall ${leaf.duration}s linear forwards`,
+                        left: `${leaf.x}%`,
+                        transform: 'translateY(-50px)',
+                        animation: `fallLeaf ${leaf.duration}s linear forwards`,
                         willChange: 'transform',
                     }}
                 >
                     {leaf.type}
                 </div>
             ))}
-
             <style>{`
-                @keyframes fall {
+                @keyframes fallLeaf {
                     to {
-                        transform: translateY(105vh) rotate(360deg);
+                        transform: translateY(100vh) rotate(360deg);
                     }
                 }
             `}</style>
