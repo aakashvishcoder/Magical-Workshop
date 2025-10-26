@@ -14,7 +14,7 @@ const WorkshopBackground = () => {
 };
 
 const WorkshopHub: React.FC = () => {
-    const { sparks, unlocked } = useGameState();
+    const { unlocked } = useGameState();
     const [activeGadget, setActiveGadget] = useState<string | null>(null);
 
     const gadgets = [
@@ -30,10 +30,6 @@ const WorkshopHub: React.FC = () => {
             <header className="p-4 text-center relative z-10">
                 <h1 className="text-3xl font-caveat text-fall-text">Magical Workshop</h1>
                 <div className="mt-2 flex justify-center items-center gap-2">
-                    <span className="text-fall-text font-medium">Autumn Sparks:</span>
-                    <span className="px-3 py-1 bg-spark-gold/20 text-spark-gold rounded-full font-bold shadow-spark">
-                        {sparks}
-                    </span>
                 </div>
             </header>
 

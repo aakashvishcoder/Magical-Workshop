@@ -10,7 +10,6 @@ const ORB_COLORS = [
 const CrystalBall: React.FC = () => {
   const [sequence, setSequence] = useState<number[]>([]);
   const [playerSequence, setPlayerSequence] = useState<number[]>([]);
-  const [isActive, setIsActive] = useState(false);
   const [isShowing, setIsShowing] = useState(false);
   const [round, setRound] = useState(0);
   const [status, setStatus] = useState<'idle' | 'playing' | 'success' | 'failed'>('idle');
