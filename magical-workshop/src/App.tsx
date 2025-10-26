@@ -1,4 +1,3 @@
-import React from 'react';
 import Home from './components/Home';
 import CustomCursor from './components/CustomCursor';
 import { ThemeProvider, useTheme } from './utils/themes';
