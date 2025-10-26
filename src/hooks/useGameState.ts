@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
-export type GadgetId = 'compass' | 'stew' | 'spell' | 'map' | 'journal' | 'crystal';
+export type GadgetId = 'compass' | 'spell' | 'stew' | 'map' | 'journal' | 'crystal';
 
 interface GameState {
     sparks: number;
     unlocked: GadgetId[];
-}
+};
 
 const DEFAULT_STATE: GameState = {
     sparks: 5,
@@ -32,7 +32,7 @@ export const useGameState = () => {
         }
     };
 
-    const spendSparks = (amount: number) => {
+    const spendSparks = (amount: number): boolean => {
         if (state.sparks >= amount) {
             setState(prev => ({ ...prev, sparks: prev.sparks - amount }));
             return true;
@@ -40,5 +40,5 @@ export const useGameState = () => {
         return false;
     };
 
-    return { ...state, unlockGadget, spendSparks};
+    return { ...state, unlockGadget, spendSparks };
 };
