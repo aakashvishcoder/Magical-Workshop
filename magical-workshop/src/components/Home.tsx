@@ -8,7 +8,6 @@ import SpellGenerator from './gadgets/SpellGenerator';
 import OrpheusMap from './gadgets/OrpheusMap';
 import Journal from './gadgets/Journal';
 import CrystalBall from './gadgets/CrystalBall';
-import { useGameState } from '../hooks/useGameState';
 import type { GadgetId } from '../hooks/useGameState';
 
 const gadgets: { id: GadgetId; name: string; icon: string }[] = [
