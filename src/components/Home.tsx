@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import FallingLeaves from './FallingLeaves';
 import AmbientParticles from './AmbientParticles';
 import GadgetModel from './GadgetModel';
-import { useTheme } from '../utils/themes';
+import PumpkinStewGame from './gadgets/PumpkinStewGame';
 import Compass from './gadgets/CompassGame';
+import { useTheme } from '../utils/themes';
+import { useGameState } from '../hooks/useGameState';
 
 const gadgets = [
     { id: 'compass', name: "Magical Compass", icon: '🧭' },
@@ -16,6 +18,7 @@ const gadgets = [
 
 const Home: React.FC = () => {
     const { season, toggleSeason } = useTheme();
+    const { sparks } = useGameState();
     const [openGadget, setOpenGadget] = useState<string | null>(null);
 
     return (
@@ -34,44 +37,15 @@ const Home: React.FC = () => {
                     <p className="text-fall-text/80 text-lg mb-6">
                         A whimsical lab of enchanted gadgets and autumnal wonders.
                     </p>
-                    <button
-                        onClick={toggleSeason}
-                        className="px-6 py-2.5 bg-white/80 hover:bg-white text-fall-text rounded-full font-medium shadow-sm transition-all duration-300 hover:shadow-md backdrop-blur-sm border border-amber-100"
-                    >
-                        Switch to {season === 'fall' ? 'Summer' : 'Fall'} Mode
-                    </button>
-                </header>
 
-                <main className="mb-16">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                        {gadgets.map((gadget) => (
-                            <button
-                                key={gadget.id}
-                                onClick={() => setOpenGadget(gadget.id)}
-                                className="group flex flex-col items-center p-5 bg-white/60 hover:bg-white/80 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-lg backdrop-blur-sm border border-white/30"
-                                aria-label={gadget.name}
-                            >
-                                <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                                    {gadget.icon}
-                                </div>
-                                <span className="text-fall-text font-medium text-sm text-center leading-tight">
-                                    {gadget.name}
-                                </span>
-                            </button>
-                        ))}
+                    <div className="mb-4 flex items-center justify-center gap-2">
+                        <span className="text-fall-text font-medium">Autumn Sparks:</span>
+                        <span className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full font-bold shadow-sm">
+                            {sparks}
+                        </span>
                     </div>
-                </main>
-
-                <footer className="text-center text-fall-text/60 text-sm pb-8 border-t border-fall-text/10 pt-8">
-                    <p>Made with 🍁 & magic in McKinney, TX • Find Orpheus soon...</p>
-                </footer>
+                </header>
             </div>
-
-            {openGadget && (
-                <GadgetModel onClose={() => setOpenGadget(null)}>
-                    {openGadget === 'compass' && <Compass />}
-                </GadgetModel>
-            )}
         </div>
     );
 };
