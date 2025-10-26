@@ -5,7 +5,7 @@ export type GadgetId = 'compass' | 'spell' | 'stew' | 'map' | 'journal' | 'cryst
 interface GameState {
     sparks: number;
     unlocked: GadgetId[];
-};
+}
 
 const DEFAULT_STATE: GameState = {
     sparks: 5,

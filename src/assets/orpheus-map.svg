@@ -1,0 +1,24 @@
+<!-- src/assets/orpheus-map.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <!-- Background -->
+  <rect width="600" height="400" fill="#e8f5e9" />
+  
+  <!-- Forest -->
+  <path d="M100,300 Q150,200 200,300 T300,300" fill="#2e7d32" opacity="0.3"/>
+  <circle cx="150" cy="250" r="40" fill="#388e3c" opacity="0.4"/>
+  <circle cx="250" cy="230" r="35" fill="#2e7d32" opacity="0.4"/>
+  
+  <!-- River -->
+  <path d="M400,350 Q450,250 500,350" fill="#1976d2" opacity="0.2"/>
+  
+  <!-- Cabin -->
+  <rect x="320" y="280" width="40" height="30" fill="#5d4037" opacity="0.6"/>
+  <polygon points="320,280 340,260 360,280" fill="#795548" opacity="0.6"/>
+  
+  <!-- Mountains -->
+  <polygon points="50,300 100,200 150,300" fill="#616161" opacity="0.2"/>
+  <polygon points="550,300 500,200 450,300" fill="#616161" opacity="0.2"/>
+  
+  <!-- Paths -->
+  <path d="M200,300 L300,280 L400,300" stroke="#8d6e63" stroke-width="4" opacity="0.5" stroke-dasharray="5,5"/>
+</svg>
