@@ -1,33 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@300;500;700&display=swap');
 
-:root {
-  --bg-color: #fdf8f0;
-  --text-color: #5a3e2b;
-  --accent-glow: rgba(255, 150, 100, 0.6);
-  --leaf-opacity: 1;
-  --cursor-url: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23d4a76a" d="M12,2L8,8L2,8L6,12L2,16L8,16L12,22L16,16L22,16L18,12L22,8L16,8L12,2Z"/></svg>');
-}
-
-[data-season="summer"] {
-  --bg-color: #e0f7d4;
-  --leaf-opacity: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
   margin: 0;
-  background-color: var(--bg-color) !important;
-  color: var(--text-color) !important;
-  font-family: "Caveat", cursive, sans-serif;
+  background-color: #fdf8f0 !important;
+  color: #5a3e2b !important;
+  font-family: 'Inter', sans-serif;
   min-height: 100vh;
-  overflow: hidden;
-  cursor: none;
-}
-
-.gadget-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  overflow-x: hidden;
 }
