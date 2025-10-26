@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useGameState } from '../../hooks/useGameState';
 
 const CompassGame: React.FC = () => {
-  const { sparks, spendSparks, unlockGadget } = useGameState();
+  const { unlockGadget } = useGameState();
   const [targetAngle, setTargetAngle] = useState(0);
   const [playerAngle, setPlayerAngle] = useState(0);
   const [status, setStatus] = useState<'idle' | 'success' | 'failed'>('idle');
-  const cost = 2;
 
   useEffect(() => {
     setTargetAngle(Math.floor(Math.random() * 360));
@@ -20,34 +19,37 @@ const CompassGame: React.FC = () => {
     setPlayerAngle(radians * (180 / Math.PI) + 90);
   };
 
-  const handleSubmit = () => {
-    if (sparks < cost) {
-      setStatus('failed');
-      return;
-    }
-    
+  const isClose = () => {
     const diff = Math.abs(playerAngle - targetAngle);
-    const isClose = diff < 15 || Math.abs(diff - 360) < 15;
+    const minDiff = Math.min(diff, 360 - diff); 
+    return minDiff <= 30; 
+  };
 
-    if (isClose) {
-      spendSparks(cost);
-      unlockGadget('stew');
+  const handleSubmit = () => {
+    if (isClose()) {
+      unlockGadget('stew'); 
       setStatus('success');
     } else {
       setStatus('failed');
     }
   };
 
+  const getCompassRingClass = () => {
+    if (status === 'idle' && isClose()) {
+      return 'border-4 border-green-400 shadow-lg shadow-green-200/50';
+    }
+    return 'border-4 border-amber-200';
+  };
+
   return (
     <div className="text-center p-6 max-w-md w-full">
       <h2 className="text-2xl font-caveat font-bold text-fall-text mb-2">🧭 Magical Compass</h2>
       <p className="text-fall-text/80 mb-6">
-        Rotate to match the hidden direction. Costs <span className="font-bold text-amber-700">{cost} sparks</span>.
+        Rotate to match the hidden direction.
       </p>
 
       <div className="relative w-48 h-48 mx-auto mb-8">
-        <div className="absolute inset-0 rounded-full border-4 border-amber-200"></div>
-
+        <div className={`absolute inset-0 rounded-full ${getCompassRingClass()}`}></div>
         <div className="absolute top-2 left-1/2 transform -translate-x-1/2 text-xs font-bold text-amber-800">N</div>
         <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-xs font-bold text-amber-800">S</div>
         <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-xs font-bold text-amber-800">W</div>
@@ -72,8 +74,6 @@ const CompassGame: React.FC = () => {
         className={`px-6 py-2.5 rounded-full font-bold text-white shadow-md transition-all ${
           status === 'success'
           ? 'bg-green-500 cursor-default'
-          : sparks < cost
-          ? 'bg-gray-400 cursor-not-allowed'
           : 'bg-amber-600 hover:bg-amber-700 hover:scale-105'
         }`}
       >
@@ -82,7 +82,7 @@ const CompassGame: React.FC = () => {
 
       {status === 'failed' && (
         <p className="mt-4 text-red-600 font-medium">
-          {sparks < cost ? 'Not enough sparks!' : 'Not quite... try again!'}
+          Not quite... try again!
         </p>
       )}
       {status === 'success' && (

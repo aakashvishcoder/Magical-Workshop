@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useGameState } from '../../hooks/useGameState';
 
 const RUNES = [
     { id: 'pumpkin', symbol: '🎃', prefix: 'Pumpkin' },
@@ -14,11 +13,9 @@ const SUFFIXES = ['ium', 'ara', 'wick', 'mire', 'thorn', 'bloom'];
 const ADJECTIVES = ['Warm', 'Glowing', 'Whispering', 'Crisp', 'Mystic', 'Golden'];
 
 const SpellGenerator: React.FC = () => {
-    const { sparks, spendSparks, unlockGadget } = useGameState();
     const [selectedRunes, setSelectedRunes] = useState<string[]>([]);
     const [spell, setSpell] = useState<{ name: string; description: string } | null>(null);
     const [status, setStatus] = useState<'idle' | 'success' | 'failed'>('idle');
-    const cost = 2;
 
     const handleRuneClick = (runeId: string) => {
         if (selectedRunes.length >= 3) return;
@@ -33,16 +30,10 @@ const SpellGenerator: React.FC = () => {
     };
 
     const generateSpell = () => {
-        if (sparks < cost) {
-            setStatus('failed');
-            return;
-        }
         if (selectedRunes.length !== 3) {
             setStatus('failed');
             return;
         }
-
-        if (!spendSparks(cost)) return;
 
         const prefixes = selectedRunes.map(id => RUNES.find(r => r.id === id)?.prefix || '');
         const base = prefixes.join('');
@@ -53,7 +44,6 @@ const SpellGenerator: React.FC = () => {
         const description = `A ${adj.toLowerCase()} spell that ${getEffect(base)}.`;
 
         setSpell({ name, description });
-        unlockGadget('map');
         setStatus('success');
     };
 
@@ -75,7 +65,7 @@ const SpellGenerator: React.FC = () => {
         <div className="text-center p-6 max-w-md w-full">
             <h2 className="text-2xl font-caveat font-bold text-fall-text mb-2">🪄 Spell Generator</h2>
             <p className="text-fall-text/80 mb-6">
-                Combine 3 runes to craft a spell. Costs <span className="font-bold text-amber-700">{cost} sparks</span>.
+                Combine 3 runes to craft a spell.
             </p>
 
             <div className="mb-8">
@@ -151,7 +141,7 @@ const SpellGenerator: React.FC = () => {
 
             {status === 'failed' && (
                 <p className="mt-4 text-red-600 font-medium">
-                    {sparks < cost ? 'Not enough sparks!' : 'Select exactly 3 runes!'}
+                    Select exactly 3 runes!
                 </p>
             )}
         </div>
