@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import FallingLeaves from './FallingLeaves';
+import AmbientParticles from './AmbientParticles';
 import GadgetModel from './GadgetModel';
 import { useTheme } from '../utils/themes';
 import Compass from './gadgets/CompassGame';
@@ -19,6 +20,7 @@ const Home: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-fall-bg relative overflow-hidden">
+            <AmbientParticles />
             <FallingLeaves />
 
             <div className="container mx-auto px-4 py-8 relative z-10">
