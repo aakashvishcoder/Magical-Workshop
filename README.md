@@ -1,6 +1,6 @@
 # Magical Workshop
 
-A workshop game made for Hackclub's Siege!
+A workshop game!
 
 # How to Play:
 Click on each of the different stations and play around with the different mechanics!
